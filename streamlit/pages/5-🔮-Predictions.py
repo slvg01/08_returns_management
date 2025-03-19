@@ -45,24 +45,24 @@ class Item(BaseModel):
     ProductGroup: int
 
 # Sidebar header
-st.sidebar.header("Select model")
+#st.sidebar.header("Select model")
 
 # List of models
-models = ["High Positive Recall Model", "Balanced Model"]
+#models = ["High Positive Recall Model", "Balanced Model"]
 
 # Check if the third model exists
-if os.path.exists("models/XGB_artifacts.joblib"):
-    models.append("Third Model")
+#if os.path.exists("models/XGB_artifacts.joblib"):
+#    models.append("Third Model")
 
 # Model selection dropdown
-model_name = st.sidebar.selectbox("Model", models)
+#model_name = st.sidebar.selectbox("Model", models)
 
 # Model selection mapping
-model_mapping = {
-    "High Positive Recall Model": "high_recall",
-    "Balanced Model": "balanced",
-    "Third Model": "third"
-}
+#model_mapping = {
+#    "High Positive Recall Model": "high_recall",
+#    "Balanced Model": "balanced",
+#    "Third Model": "third"
+#}
 
 # Add space to the UI
 for _ in range(2):
@@ -107,10 +107,16 @@ if st.button("Predict"):
     )
 
     # Make a POST request to the FastAPI endpoint with selected model
-    response = requests.post(f"http://localhost:8007/predict/{model_mapping[model_name]}", json=item.dict())
+    #response = requests.post(f"http://localhost:8000/predict/{model_mapping[model_name]}", json=item.dict())
+    response = requests.post(f"http://localhost:8000/predict", json=item.dict())
 
     if response.status_code == 200:
-        prediction = response.json()["prediction"]
-        st.write(f"The predicted odds that the item will be returned: {prediction:.2%}")
+            data = response.json()
+            prediction = data["prediction"]
+            risk_rate = data["risk_rate"]
+
+            # Display the result
+            st.write(f"Prediction: {prediction}")
+            st.write(f"Risk rate: {risk_rate:.2%}")
     else:
-        st.error("Failed to get prediction from the server.")
+            st.error("Failed to get prediction from the server.")

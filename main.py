@@ -1,5 +1,5 @@
 import pandas as pd
-#import numpy as np
+import numpy as np
 from category_encoders import TargetEncoder
 from category_encoders import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 from fastapi.responses import HTMLResponse
-f#rom sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 
 # Create the FastAPI app
@@ -21,6 +21,17 @@ encoder_target = artifacts["encoder_target"]
 encoder_onehot = artifacts["encoder_onehot"]
 scaler = artifacts["scaler"]
 model = artifacts["model"]
+
+@app.get("/check_model")
+def check_model():
+    try:
+        # Here we check if the model is loaded by checking its type
+        if model:
+            return {"status": "Model loaded successfully", "model": str(type(model))}
+        else:
+            return {"status": "Model not loaded"}
+    except Exception as e:
+        return {"status": "Error loading model", "error": str(e)}
 
 
 
@@ -109,10 +120,29 @@ def predict(item: Item):
         data = pd.DataFrame([input_values])
         
         
-
         # Preprocess the data
         pre_processed_data = preprocess_data(data)
 
+         # Make prediction
+        prediction = model.predict(pre_processed_data)
+        risk_rate = float(model.predict_proba(pre_processed_data)[0][1])
+
+        # Return prediction with risk rate
+        if prediction[0] == 0:
+            return {
+                "prediction": "Risk of return are limited, sleep well boss",
+                "risk_rate": risk_rate
+            }
+        else:
+            return {
+                "prediction": "Risk of return are high, action may be needed",
+                "risk_rate": risk_rate
+            }
+    
+    except Exception as e:
+        return {"error": str(e)}
+
+"""
         # Make prediction
         prediction = model.predict(pre_processed_data)
 
@@ -120,7 +150,8 @@ def predict(item: Item):
         if prediction[0] == 0 :
            return {"prediction": "Risk of return are limited, sleep well boss" }
         else :
-           return {"prediction": "Risk of return are high, action may be needed" }
+           return {"prediction": "Risk of return are high, action may be needed",
+                    "risk_rate": prediction_prob[0]}  # Return the probability as the risk rate}
     
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": str(e)}  """
