@@ -24,7 +24,7 @@ To install the 8_Returns_management script , follow these steps:
 - The prediction model (XGBoost) was trained on the data after preprocessing. Its running script is main.py. It allows for launching a prediction interface on your local machine through FastAPI. To access that interface:
         - In your terminal, run uvicorn main:app --reload
         - cd into the streamlit folder and then run : streamlit run info_page.py
-        - you can as well [try the app online](https://returnsmanagement.streamlit.app/) but to rget predictions -> deploy the API online
+        - you can as well [try the app online](https://returnsmanagement.streamlit.app/) but to get predictions -> deploy the API online
        
 
 - Note that the initial dataset is not available in the repo by default. Please contact me if you have any questions about it.
