@@ -5,7 +5,6 @@ import requests
 from pydantic import BaseModel
 import os
 
-
 # Load the image for the page icon
 page_icon_image = Image.open('images/logo.png')
 
@@ -15,17 +14,6 @@ st.set_page_config(
     page_title="RMAapp",
     page_icon=page_icon_image
 )
-
-
-# # Hide default Streamlit format for cleaner UI
-# hide_default_format = """
-#        <style>
-#        #MainMenu {visibility: hidden; }
-#        footer {visibility: hidden;}
-#        </style>
-#        """
-# st.markdown(hide_default_format, unsafe_allow_html=True)
-
 
 # Function to get the image in base64 for background
 def add_bg_from_url(url):
@@ -38,13 +26,11 @@ def add_bg_from_url(url):
          </style>
          """, unsafe_allow_html=True)
 
-# image URL
+# Image URL for background
 image_url = 'https://static.vecteezy.com/system/resources/previews/041/385/052/non_2x/ai-generated-a-cardboard-box-placed-on-a-white-background-free-photo.jpg'
 add_bg_from_url(image_url)
 
-
-
-
+# Define the Pydantic model
 class Item(BaseModel):
     Shop: int
     Order_Date_FK: int
@@ -57,46 +43,43 @@ class Item(BaseModel):
     BrandName: int
     ModelGroup: int
     ProductGroup: int
-    
-   
 
-# # Sidebar header
-# st.sidebar.header("Select model")
-# models = ["High Positive Recall Model", "Balanced Model"]
-# if os.path.exists("models/XGB_artifacts.joblib"):
-#     models.append("Third Model")
-# model_name = st.sidebar.selectbox("Model", models)
+# Sidebar header
+st.sidebar.header("Select model")
 
-# # Model selection mapping
-# model_mapping = {
-#     "High Positive Recall Model": "high_recall",
-#     "Balanced Model": "balanced",
-#     "Third Model": "third"
-# }
+# List of models
+models = ["High Positive Recall Model", "Balanced Model"]
 
-for _ in range (2):
+# Check if the third model exists
+if os.path.exists("models/XGB_artifacts.joblib"):
+    models.append("Third Model")
+
+# Model selection dropdown
+model_name = st.sidebar.selectbox("Model", models)
+
+# Model selection mapping
+model_mapping = {
+    "High Positive Recall Model": "high_recall",
+    "Balanced Model": "balanced",
+    "Third Model": "third"
+}
+
+# Add space to the UI
+for _ in range(2):
     st.markdown("")
 
-
-# Create two columns
+# Create columns for layout
 col1, col2 = st.columns([2, 2])
 
-# Display Page Tile in the first column
+# Display Page Title in the first column
 col1.markdown("""
-
-<h1>&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp Return Prediction tool</h1>
-              
-<h2>Please Enter or load your sales data below<br><h2>
-
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return Prediction tool</h1>
+    <h2>Please Enter or load your sales data below</h2>
 """, unsafe_allow_html=True)
 
-
-
-# Input form and  default
-
-
-Shop = col1.number_input("Shop", value= 1)
-Order_Date_FK = col1.number_input("Date", value= 20240125)
+# Input form for user to provide sales data
+Shop = col1.number_input("Shop", value=1)
+Order_Date_FK = col1.number_input("Date", value=20240125)
 Product_code = col1.text_input("Product Code", value='1968361059464632550')
 OriginalSaleAmountInclVAT = col1.number_input("Original Sale Amount Incl VAT", value=99.95)
 CustomerID = col1.text_input("Customer ID", value='-2190786785520839526')
@@ -107,22 +90,20 @@ BrandName = col1.text_input("Brand Name", value='3694837121284491212')
 ModelGroup = col1.text_input("Model Group", value='3162564956579801398')
 ProductGroup = col1.text_input("Product Group", value='-453682476182549203')
 
-
-
 # Predict button
 if st.button("Predict"):
     item = Item(
-        Shop = Shop,
-        Order_Date_FK = Order_Date_FK,
-        Product_code = Product_code,
-        OriginalSaleAmountInclVAT = OriginalSaleAmountInclVAT,
-        CustomerID = CustomerID,
-        SaleDocumentNumber = SaleDocumentNumber,
-        RevenueInclVAT = RevenueInclVAT,
-        CostPriceExclVAT = CostPriceExclVAT,
-        BrandName = BrandName,
-        ModelGroup = ModelGroup,
-        ProductGroup = ProductGroup
+        Shop=Shop,
+        Order_Date_FK=Order_Date_FK,
+        ProductCode=Product_code,
+        OriginalSaleAmountInclVAT=OriginalSaleAmountInclVAT,
+        CustomerID=CustomerID,
+        SaleDocumentNumber=SaleDocumentNumber,
+        RevenueInclVAT=RevenueInclVAT,
+        CostPriceExclVAT=CostPriceExclVAT,
+        BrandName=BrandName,
+        ModelGroup=ModelGroup,
+        ProductGroup=ProductGroup
     )
 
     # Make a POST request to the FastAPI endpoint with selected model
