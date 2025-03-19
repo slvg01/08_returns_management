@@ -1,18 +1,23 @@
 import streamlit as st
-import streamlit as st
 import os
 import base64
 from PIL import Image 
 
 
+
+
+#page_icon_image = Image.open('images/logo.png')
+image_path = os.path.join(os.path.dirname(__file__), "images", "logo.png")
+page_icon_image = Image.open(image_path)
+
 #define the page configuration
 st.set_page_config(
     layout="wide",
-    page_title="Predictive Models Characteristics",
-    page_icon="images/logo.png"  # Path to your local image file
+    page_title="Ambitions",
+    page_icon=page_icon_image  # Path to your local image file
 )
 
-st.title("Predictive Models Characteristics")
+st.title("Ambitions")
 
 
 

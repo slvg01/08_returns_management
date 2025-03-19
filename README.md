@@ -3,6 +3,7 @@
 
 -  Give business insights to the client regarding the returned products situation  
 -  Create a model to predict the returns based on provided data.
+-  Insert the predictive model into a App
 
 
 # Installation
@@ -21,7 +22,9 @@ To install the 8_Returns_management script , follow these steps:
 # How to use
    
 - The prediction model (XGBoost) was trained on the data after preprocessing. Its running script is main.py. It allows for launching a prediction interface on your local machine through FastAPI. To access that interface:
-        - In your terminal, run main:app --reload
+        - In your terminal, run uvicorn main:app --reload
+        - cd into the streamlit folder and then run : streamlit run info_page.py
+        - you can as well [try the app online](https://returnsmanagement.streamlit.app/) but to really get the prediction you will have to deploy the API online
         - Click on the documentation button.
 
 - Note that the initial dataset is not available in the repo by default. Please contact me if you have any questions about it.
