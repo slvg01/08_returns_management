@@ -6,7 +6,7 @@ from pydantic import BaseModel
 import os
 
 #page_icon_image = Image.open('images/logo.png')
-image_path = os.path.join(os.path.dirname(__file__), "images", "logo.png")
+image_path = os.path.join(os.path.dirname(__file__), "..", "images", "logo.png")
 page_icon_image = Image.open(image_path)
 
 # Configure Streamlit page settings
