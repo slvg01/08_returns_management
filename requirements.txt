@@ -5,8 +5,12 @@ fastapi
 streamlit
 requests
 streamlit-extras
+category_encoders
+scikit-learn
+joblib
+pandas
+category_encoders
+scikit-learn
+uvicorn
 #matplotlib
-#category_encoders
-#scikit-learn
 #xgboost==2.0.3
-#joblib==1.2.0

@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+#import numpy as np
 from category_encoders import TargetEncoder
 from category_encoders import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
@@ -7,8 +7,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 from fastapi.responses import HTMLResponse
-from sklearn.model_selection import train_test_split
-
+f#rom sklearn.model_selection import train_test_split
 
 
 # Create the FastAPI app
