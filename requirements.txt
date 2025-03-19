@@ -4,6 +4,7 @@ pydantic
 fastapi
 streamlit
 requests
+streamlit-extras
 #matplotlib
 #category_encoders
 #scikit-learn
