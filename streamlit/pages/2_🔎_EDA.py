@@ -88,7 +88,7 @@ if page == 'data key figures':
     
     #Print the first 5 rows of the dataframe
     st.text('base data:')
-    df = pd.read_csv('../../EDA/df.csv')
+    df = pd.read_csv('../EDA/df.csv')
     numeric_cols = df.select_dtypes(include=[np.number]).columns
     df[numeric_cols] = df[numeric_cols].astype(str)
 
