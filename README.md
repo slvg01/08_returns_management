@@ -35,7 +35,7 @@ To install the 8_Returns_management script , follow these steps:
 # Main Conclusions 
 
 
-- Even with limited data and understanding of the data, it appears hat returns can be optimized by managing better the outliers on many of the features. There are indeed specific, 
+- Even with limited data and understanding of the data, it appears that returns can be optimized by managing better the outliers on many of the features. There are indeed specific, 
      - price bands, 
      - products, 
      - brands, 
