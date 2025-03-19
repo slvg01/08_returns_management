@@ -7,8 +7,9 @@
 
 
 #takeout venv
-return_venv/
-
+return_env/
+/return_env/
+/return_env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
